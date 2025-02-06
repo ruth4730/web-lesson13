@@ -1,13 +1,13 @@
-async function postsApi() {
+async function albumsApi() {
     try {
-        const url = 'https://jsonplaceholder.typicode.com/posts'
+        const url = 'https://jsonplaceholder.typicode.com/albums'
         const resp = await fetch(url)
         const data = await resp.json()
-        const items = data.map(post => {
+        const items = data.map(album => {
             const li = document.createElement('li')
-            li.textContent = `${post.title}`
-            li.setAttribute('id', post.id)
-            li.addEventListener('click', () => showcomments(post.id))
+            li.textContent = `${album.title}`
+            li.setAttribute('id', album.id)
+            li.addEventListener('click', () => showPhotos(album.id))
             li.style.cursor = 'pointer'
             return li
         })
@@ -17,16 +17,16 @@ async function postsApi() {
     }
 }
 postsApi()
-async function showcomments(id) {
+async function showPhotos(id) {
     document.querySelector('ul').style.display = 'none'
     try {
-        const url = `https://jsonplaceholder.typicode.com/photos?postId=${id}`
+        const url = `https://jsonplaceholder.typicode.com/photos?photoId=${id}`
         const resp = await fetch(url)
         const data = await resp.json()
-        const items = data.map(comment => {
+        const items = data.map(photo => {
             const img = document.createElement('img')
-            //img.setAttribute('src', comment.url)
-            img.setAttribute('alt', comment.title)
+            //img.setAttribute('src', photo.url)
+            img.setAttribute('alt', photo.title)
             return img
         })
         document.querySelector('body').append(...items)
